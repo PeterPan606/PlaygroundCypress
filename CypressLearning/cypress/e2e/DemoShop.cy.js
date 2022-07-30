@@ -1,6 +1,10 @@
+import url from "../../pages/Home.page";
+
 describe("Testing the DemoShop:", () => {
   it("Access the site: ", () => {
-    cy.visit("https://www.demoblaze.com/");
+    const myurl = new url();
+    myurl.navigate();
+    //cy.visit("https://www.demoblaze.com/");
   });
   it("Verify the main page components exist", () => {
     cy.get("#narvbarx").should("exist");
