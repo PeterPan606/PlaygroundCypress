@@ -28,7 +28,7 @@ describe("Testing the DemoShop:", () => {
       .contains("Cart");
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
+
       .contains("Log in");
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
