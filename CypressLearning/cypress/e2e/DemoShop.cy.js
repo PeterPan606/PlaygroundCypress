@@ -32,7 +32,7 @@ describe("Testing the DemoShop:", () => {
       .contains("Log in");
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
+
       .contains("Sign up");
   });
   it("Sign Up: ", () => {
