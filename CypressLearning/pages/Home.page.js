@@ -1,10 +1,12 @@
-class url {
-  website = "https://www.demoblaze.com/";
+class urls {
+  homepage = "https://www.demoblaze.com/";
+
   navigate() {
-    cy.visit(this.website);
+    cy.visit(this.homepage);
   }
-  /*  async goto() {
-    console.log("this is my url " + this.url);
-  } */
+
+  navigationBar() {
+    return cy.get("#narvbarx");
+  }
 }
-export default url;
+export default urls;

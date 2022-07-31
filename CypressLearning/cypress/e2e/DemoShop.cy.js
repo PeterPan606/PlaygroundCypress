@@ -1,17 +1,20 @@
-import url from "../../pages/Home.page";
+import urls from "../../pages/Home.page";
 
 describe("Testing the DemoShop:", () => {
-  it("Access the site: ", () => {
-    const myurl = new url();
-    myurl.navigate();
-    //cy.visit("https://www.demoblaze.com/");
+  it("Access the homepage: ", () => {
+    const page = new urls();
+    page.navigate();
+    cy.url().should('be.equal', page.homepage)
   });
+
   it("Verify the main page components exist", () => {
-    cy.get("#narvbarx").should("exist");
+    const homepage = new urls();
+    homepage.navigationBar().should("exist");
     cy.get("#footc").should("exist");
     cy.get('[class="container"]').should("exist");
     cy.get('[class="py-5 bg-inverse"]').should("exist");
   });
+
   it("Verify the nav components exist", () => {
     cy.get("#narvbarx").find("#nava").should("exist").contains("PRODUCT STORE");
     cy.get("#narvbarx")
@@ -39,6 +42,7 @@ describe("Testing the DemoShop:", () => {
 
       .contains("Sign up");
   });
+
   it("Sign Up: ", () => {
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
@@ -56,6 +60,7 @@ describe("Testing the DemoShop:", () => {
         cy.get('[class="btn btn-primary"]').eq(0).click({ force: true });
       });
   });
+
   it("Log in: ", () => {
     cy.wait(5000);
     cy.get("#narvbarx")
