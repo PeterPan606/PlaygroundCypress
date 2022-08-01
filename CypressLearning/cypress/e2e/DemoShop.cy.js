@@ -16,7 +16,7 @@ describe("Testing the DemoShop:", () => {
   });
 
   it("Verify the nav components exist", () => {
-    cy.get("#narvbarx").find("#nava").should("exist").contains("PRODUCT STORE");
+    cy.get("#narvbarx").find("#nava").contains("PRODUCT STORE");
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
       .should("exist")
