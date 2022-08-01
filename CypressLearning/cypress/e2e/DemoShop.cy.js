@@ -4,7 +4,7 @@ describe("Testing the DemoShop:", () => {
   it("Access the homepage: ", () => {
     const page = new urls();
     page.navigate();
-    cy.url().should('be.equal', page.homepage)
+    cy.url().should("be.equal", page.homepage);
   });
 
   it("Verify the main page components exist", () => {
@@ -23,7 +23,7 @@ describe("Testing the DemoShop:", () => {
       .contains("Home");
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
+
       .contains("Contact");
     cy.get("#narvbarx")
       .find('[class="navbar-nav ml-auto"]')
