@@ -1,5 +1,5 @@
 import urls from "../../pages/Home.page";
-
+import navigationBarComponent from "../../pages/defineComponentes";
 describe("Testing the DemoShop:", () => {
   it("Access the homepage: ", () => {
     const page = new urls();
@@ -10,37 +10,51 @@ describe("Testing the DemoShop:", () => {
   it("Verify the main page components exist", () => {
     const homepage = new urls();
     homepage.navigationBar().should("exist");
-    cy.get("#footc").should("exist");
-    cy.get('[class="container"]').should("exist");
-    cy.get('[class="py-5 bg-inverse"]').should("exist");
+    homepage.footerSection().should("exist");
+    homepage.containerSection().should("exist");
+    homepage.copyrightSection().should("exist");
   });
 
   it("Verify the nav components exist", () => {
-    cy.get("#narvbarx").find("#nava").contains("PRODUCT STORE");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
-      .contains("Home");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
+    const homepage = new urls();
+    const navigationBarComponentObj = new navigationBarComponent();
+    homepage.navigationBar().find("#nava").contains("PRODUCT STORE");
+    for (
+      let i = 0;
+      i < navigationBarComponentObj.navigationMenuOptions.length;
+      i++
+    ) {
+      homepage
+        .navigationBar()
+        .find(navigationBarComponentObj.navigationMenuLocation)
+        .should("exist")
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+      homepage
+        .navigationBar()
+        .find(navigationBarComponentObj.navigationMenuLocation)
 
-      .contains("Contact");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
-      .contains("About us");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
-      .contains("Cart");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+      homepage
+        .navigationBar()
+        .find(navigationBarComponentObj.navigationMenuLocation)
+        .should("exist")
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+      homepage
+        .navigationBar()
+        .find(navigationBarComponentObj.navigationMenuLocation)
+        .should("exist")
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+      homepage
+        .navigationBar()
+        .find(navigationBarComponentObj.navigationMenuLocation)
 
-      .contains("Log in");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+      homepage
+        .navigationBar()
+        .find(navigationBarComponentObj.navigationMenuLocation)
 
-      .contains("Sign up");
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+    }
   });
 
   it("Sign Up: ", () => {
