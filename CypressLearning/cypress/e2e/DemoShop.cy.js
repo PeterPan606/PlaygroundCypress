@@ -1,5 +1,10 @@
 import urls from "../../pages/Home.page";
-import navigationBarComponent from "../../pages/defineComponentes";
+import navigationBarComponent from "../../pages/defineNavigationComponent";
+import signUsignUpCredentialsTestData from "../../TestData/SignUpData";
+import LogInTestData from "../../TestData/LogInData";
+
+import signUpComponent from "../../pages/defineSignUpComponent";
+import LogInComponent from "../../pages/defineLogInComponent";
 describe("Testing the DemoShop:", () => {
   it("Access the homepage: ", () => {
     const page = new urls();
@@ -16,90 +21,92 @@ describe("Testing the DemoShop:", () => {
   });
 
   it("Verify the nav components exist", () => {
-    const homepage = new urls();
     const navigationBarComponentObj = new navigationBarComponent();
-    homepage.navigationBar().find("#nava").contains("PRODUCT STORE");
+    navigationBarComponentObj
+      .logoLocation()
+      .contains(navigationBarComponentObj.logoTitle);
     for (
       let i = 0;
       i < navigationBarComponentObj.navigationMenuOptions.length;
       i++
     ) {
-      homepage
-        .navigationBar()
-        .find(navigationBarComponentObj.navigationMenuLocation)
+      navigationBarComponentObj
+        .navigationMenuLocation()
         .should("exist")
         .contains(navigationBarComponentObj.navigationMenuOptions[i]);
-      homepage
-        .navigationBar()
-        .find(navigationBarComponentObj.navigationMenuLocation)
-
-        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
-      homepage
-        .navigationBar()
-        .find(navigationBarComponentObj.navigationMenuLocation)
+      navigationBarComponentObj
+        .navigationMenuLocation()
         .should("exist")
         .contains(navigationBarComponentObj.navigationMenuOptions[i]);
-      homepage
-        .navigationBar()
-        .find(navigationBarComponentObj.navigationMenuLocation)
+      navigationBarComponentObj
+        .navigationMenuLocation()
         .should("exist")
         .contains(navigationBarComponentObj.navigationMenuOptions[i]);
-      homepage
-        .navigationBar()
-        .find(navigationBarComponentObj.navigationMenuLocation)
-
+      navigationBarComponentObj
+        .navigationMenuLocation()
+        .should("exist")
         .contains(navigationBarComponentObj.navigationMenuOptions[i]);
-      homepage
-        .navigationBar()
-        .find(navigationBarComponentObj.navigationMenuLocation)
-
+      navigationBarComponentObj
+        .navigationMenuLocation()
+        .should("exist")
+        .contains(navigationBarComponentObj.navigationMenuOptions[i]);
+      navigationBarComponentObj
+        .navigationMenuLocation()
+        .should("exist")
         .contains(navigationBarComponentObj.navigationMenuOptions[i]);
     }
   });
 
-  it("Sign Up: ", () => {
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
+  it("Sign Up: we generate a new user and a new password and simulate the sign up ", () => {
+    const signUpComponentObj = new signUpComponent();
+    const signUpCredentialsObj = new signUsignUpCredentialsTestData();
+
+    signUpComponentObj
+      .navigationMenuLocation()
       .should("be.visible")
-      .contains("Sign up")
+      .contains(signUpComponentObj.signUpOptions)
       .click({ force: true })
       .then(() => {
-        cy.get('[class="form-group"]')
-          .find("#sign-username")
-          .type("Radupokemon", { force: true });
-        cy.get('[class="form-group"]')
-          .find("#sign-password")
-          .type("radu123", { force: true });
+        signUpComponentObj
+          .usernameInputFieldLocation()
+          .type(signUpCredentialsObj.composeTheUsername(), { force: true });
+        signUpComponentObj
+          .passwordInputFieldLocation()
+          .type(signUpCredentialsObj.composeThePassword(), { force: true });
+        signUpComponentObj.signUpButtonLocation().click({ force: true });
         cy.wait(5000);
-        cy.get('[class="btn btn-primary"]').eq(0).click({ force: true });
       });
   });
-
-  it("Log in: ", () => {
-    cy.wait(5000);
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
+  it("Log in functionality: with our our dardcoded user", () => {
+    const logInComponentObj = new LogInComponent();
+    const LogInTestDataObj = new LogInTestData();
+    logInComponentObj
+      .navigationBarLocation()
       .should("be.visible")
-      .contains("Log in")
-      .click({ force: true });
-    cy.get('[class="form-group"]')
-      .find("#loginusername")
-      .type("Radupokemon", { force: true });
-    cy.get('[class="form-group"]')
-      .find("#loginpassword")
-      .type("radu123", { force: true });
-    cy.wait(5000);
-    cy.get('[class="btn btn-primary"]')
-      .contains("Log in")
-      .click({ force: true });
-    cy.wait(5000);
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
-      .contains("Log out");
-    cy.get("#narvbarx")
-      .find('[class="navbar-nav ml-auto"]')
-      .should("exist")
-      .contains("Welcome Radupokemon");
+      .contains(logInComponentObj.logInOptions)
+      .click({ force: true })
+      .then(() => {
+        //Complete the username
+        logInComponentObj
+          .usernameInputFieldLocation()
+          .type(LogInTestDataObj.username, { force: true });
+        //complete password
+        logInComponentObj
+          .passwordInputFieldLocation()
+          .type(LogInTestDataObj.password, { force: true });
+        //log in click
+        logInComponentObj.logInButtonLocation().eq(0).click({ force: true });
+
+        logInComponentObj
+          .navigationMenuLocation()
+          .should("exist")
+          .contains("Log out");
+        //I don't understand why i doesn't identify the element
+        logInComponentObj
+          .navigationMenuLocation()
+          .should("exist")
+          .find("#nameofuser")
+          .contains("Welcome " + LogInTestDataObj.username);
+      });
   });
 });
