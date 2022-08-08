@@ -5,9 +5,11 @@ class signUpCredentialsTestData extends generateRandomCredentials {
   passwordTestData = "Pokemon";
   generateRandomUsernamte = this.generateRandom();
   generateRandomPassword = this.generateRandom();
+  
   composeTheUsername() {
     return this.usernameTestData + this.generateRandomUsernamte;
   }
+  
   composeThePassword() {
     return this.passwordTestData + this.generateRandomPassword;
   }
